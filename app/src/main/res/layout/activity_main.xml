@@ -1,17 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.rookie.www.topnews.MainActivity">
+    android:orientation="vertical"
+    tools:context="com.rookie.www.topnews.activity.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvMainFashion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:background="@drawable/tvmain_selector"
+            android:clickable="true"
+            android:onClick="doClick"
+            android:text="时尚"/>
+
+        <TextView
+            android:id="@+id/tvMainSociety"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:background="@drawable/tvmain_selector"
+            android:clickable="true"
+            android:onClick="doClick"
+            android:text="社会"/>
+
+        <TextView
+            android:id="@+id/tvMainHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:background="@drawable/tvmain_selector"
+            android:clickable="true"
+            android:onClick="doClick"
+            android:text="国内"/>
+
+        <TextView
+            android:id="@+id/tvMainAbroad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:background="@drawable/tvmain_selector"
+            android:clickable="true"
+            android:onClick="doClick"
+            android:text="国际"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvMainAmuse"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:background="@drawable/tvmain_selector"
+            android:clickable="true"
+            android:onClick="doClick"
+            android:text="娱乐"/>
+
+        <TextView
+            android:id="@+id/tvMainSport"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:background="@drawable/tvmain_selector"
+            android:clickable="true"
+            android:onClick="doClick"
+            android:text="体育"/>
+
+        <TextView
+            android:id="@+id/tvMainWar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:background="@drawable/tvmain_selector"
+            android:clickable="true"
+            android:onClick="doClick"
+            android:text="军事"/>
+
+        <TextView
+            android:id="@+id/tvMainScience"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:background="@drawable/tvmain_selector"
+            android:clickable="true"
+            android:onClick="doClick"
+            android:text="科技"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lvMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

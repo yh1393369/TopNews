@@ -1,0 +1,30 @@
+package com.rookie.www.topnews.utils;
+
+import android.app.ProgressDialog;
+
+import com.rookie.www.topnews.MyApplication;
+
+/**
+ * Created by Hi on 2017/2/9.
+ */
+
+public class ProgressDialogUtil {
+
+    private static ProgressDialog progressDialog;
+
+    public static void showProgressDialog(){
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(MyApplication.getContext());
+            progressDialog.setMessage("正在加载...");
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        progressDialog.show();
+    }
+
+    public static void closeProgressDialog(){
+        if(progressDialog != null){
+            progressDialog.dismiss();
+        }
+    }
+
+}
