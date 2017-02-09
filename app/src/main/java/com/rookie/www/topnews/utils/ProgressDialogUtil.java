@@ -1,6 +1,7 @@
 package com.rookie.www.topnews.utils;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 
 import com.rookie.www.topnews.MyApplication;
 
@@ -12,9 +13,9 @@ public class ProgressDialogUtil {
 
     private static ProgressDialog progressDialog;
 
-    public static void showProgressDialog(){
+    public static void showProgressDialog(Context context){
         if(progressDialog == null){
-            progressDialog = new ProgressDialog(MyApplication.getContext());
+            progressDialog = new ProgressDialog(context);
             progressDialog.setMessage("正在加载...");
             progressDialog.setCanceledOnTouchOutside(false);
         }
