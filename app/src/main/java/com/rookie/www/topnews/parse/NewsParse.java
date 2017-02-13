@@ -14,8 +14,13 @@ import java.util.ArrayList;
 
 public class NewsParse {
 
+    public static ArrayList<News> newses;
+
     public static ArrayList<News> getNews(String json){
-        ArrayList<News> newses = new ArrayList<News>();
+        if(newses == null){
+            newses = new ArrayList<News>();
+        }
+        newses.clear();
         try {
             JSONObject jsonObject = new JSONObject(json);
             JSONObject resultJsonObject = jsonObject.getJSONObject("result");

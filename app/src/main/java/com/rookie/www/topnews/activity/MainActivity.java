@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView lvNews;
     private ArrayList<News> newses;
+    private NewsListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +54,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         newses = NewsParse.getNews(respones);
-                        NewsListAdapter adapter = new NewsListAdapter(newses, R.layout.listview_item_news, lvNews);
-                        lvNews.setAdapter(adapter);
+                        if(adapter == null){
+                            adapter = new NewsListAdapter(newses, R.layout.listview_item_news, lvNews);
+                            lvNews.setAdapter(adapter);
+                        }else {
+                            adapter.notifyDataSetChanged();
+                        }
                         ProgressDialogUtil.closeProgressDialog();
                     }
                 });
