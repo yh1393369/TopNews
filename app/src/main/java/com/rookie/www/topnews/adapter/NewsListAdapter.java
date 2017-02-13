@@ -19,7 +19,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Hi on 2017/2/9.
@@ -34,6 +36,7 @@ public class NewsListAdapter extends BaseAdapter {
     private Thread workThread;
 
     private List<ImageLoadTask> tasks = new ArrayList<ImageLoadTask>();
+    private Map<String, Bitmap> bitmaps = new HashMap<String, Bitmap>();
 
     private static final int HANDLER_LOAD_IMAGE_SUCCESS = 0;
 
@@ -102,6 +105,7 @@ public class NewsListAdapter extends BaseAdapter {
             if (connection.getResponseCode() == 200) {
                 InputStream inputStream = connection.getInputStream();
                 bitmap = BitmapFactory.decodeStream(inputStream);
+                bitmaps.put(imageUrl, bitmap);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -149,13 +153,19 @@ public class NewsListAdapter extends BaseAdapter {
         viewHolder.tvTitle.setText(title);
         viewHolder.tvAuthor.setText(author);
         viewHolder.tvDate.setText(date);
-        viewHolder.ivImage.setTag(position);
-        ImageLoadTask task = new ImageLoadTask();
-        task.imageUrl = imageUrl;
-        task.position = position;
-        tasks.add(task);
-        synchronized (workThread){
-            workThread.notify();
+        Bitmap bitmap = bitmaps.get(imageUrl);
+        if(bitmap != null){
+            viewHolder.ivImage.setImageBitmap(bitmap);
+        }else {
+            viewHolder.ivImage.setImageResource(R.mipmap.ic_launcher);
+            viewHolder.ivImage.setTag(position);
+            ImageLoadTask task = new ImageLoadTask();
+            task.imageUrl = imageUrl;
+            task.position = position;
+            tasks.add(task);
+            synchronized (workThread){
+                workThread.notify();
+            }
         }
         return convertView;
     }

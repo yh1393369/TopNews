@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#000000"
+    android:background="@drawable/ads"
     tools:context="com.rookie.www.topnews.activity.AdsActivity">
 
     <TextView
@@ -15,7 +15,8 @@
         android:layout_gravity="right"
         android:layout_margin="30dp"
         android:padding="5dp"
-        android:background="#ff00ff"
+        android:background="#22000000"
         android:text="3s"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textColor="#ffffff"/>
 </LinearLayout>
