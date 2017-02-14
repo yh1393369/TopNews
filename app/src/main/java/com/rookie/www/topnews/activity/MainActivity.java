@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.lidroid.xutils.BitmapUtils;
 import com.rookie.www.topnews.MyApplication;
 import com.rookie.www.topnews.R;
 import com.rookie.www.topnews.adapter.NewsListAdapter;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView lvNews;
     private ArrayList<News> newses;
     private NewsListAdapter adapter;
+    private BitmapUtils bitmapUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         MyApplication.getInstance().addActivity(this);
         lvNews = (ListView) findViewById(R.id.lvMain);
+        bitmapUtils = new BitmapUtils(this);
         loadNews(Constant.NEWS_TYPE_TOP);
         lvNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         newses = NewsParse.getNews(respones);
                         if(adapter == null){
-                            adapter = new NewsListAdapter(MainActivity.this, newses, R.layout.listview_item_news, lvNews);
+                            adapter = new NewsListAdapter(MainActivity.this, newses, R.layout.listview_item_news, lvNews, bitmapUtils);
                             lvNews.setAdapter(adapter);
                         }else {
                             adapter.notifyDataSetChanged();

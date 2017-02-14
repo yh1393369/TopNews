@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.rookie.www.topnews.MyApplication;
+import com.lidroid.xutils.BitmapUtils;
 import com.rookie.www.topnews.R;
 import com.rookie.www.topnews.entity.News;
 
@@ -34,6 +34,7 @@ public class NewsListAdapter extends BaseAdapter {
     private ArrayList<News> list;
     private int itemLayoutId;
     private ListView lvNews;
+    private BitmapUtils bitmapUtils;
 
     private Thread workThread;
 
@@ -62,7 +63,7 @@ public class NewsListAdapter extends BaseAdapter {
         }
     };
 
-    public NewsListAdapter(Context context, ArrayList<News> list, int itemLayoutId, ListView lvNews) {
+    public NewsListAdapter(Context context, ArrayList<News> list, int itemLayoutId, ListView lvNews, BitmapUtils bitmapUtils) {
         this.context = context;
         if (list == null) {
             list = new ArrayList<News>();
@@ -70,6 +71,7 @@ public class NewsListAdapter extends BaseAdapter {
         this.list = list;
         this.itemLayoutId = itemLayoutId;
         this.lvNews = lvNews;
+        this.bitmapUtils = bitmapUtils;
         workThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -156,7 +158,8 @@ public class NewsListAdapter extends BaseAdapter {
         viewHolder.tvTitle.setText(title);
         viewHolder.tvAuthor.setText(author);
         viewHolder.tvDate.setText(date);
-        Bitmap bitmap = bitmaps.get(imageUrl);
+        bitmapUtils.display(viewHolder.ivImage, imageUrl);
+        /*Bitmap bitmap = bitmaps.get(imageUrl);
         if(bitmap != null){
             viewHolder.ivImage.setImageBitmap(bitmap);
         }else {
@@ -169,7 +172,7 @@ public class NewsListAdapter extends BaseAdapter {
             synchronized (workThread){
                 workThread.notify();
             }
-        }
+        }*/
         return convertView;
     }
 
