@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.rookie.www.topnews.MyApplication;
 import com.rookie.www.topnews.R;
 
 public class AdsActivity extends AppCompatActivity {
@@ -19,6 +20,7 @@ public class AdsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_ads);
+        MyApplication.getInstance().addActivity(this);
         tvAdsTime = (TextView) findViewById(R.id.tvAdsTime);
         new Thread(new Runnable() {
             @Override

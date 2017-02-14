@@ -1,5 +1,6 @@
 package com.rookie.www.topnews.adapter;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
@@ -29,6 +30,7 @@ import java.util.Map;
 
 public class NewsListAdapter extends BaseAdapter {
 
+    private Context context;
     private ArrayList<News> list;
     private int itemLayoutId;
     private ListView lvNews;
@@ -60,7 +62,8 @@ public class NewsListAdapter extends BaseAdapter {
         }
     };
 
-    public NewsListAdapter(ArrayList<News> list, int itemLayoutId, ListView lvNews) {
+    public NewsListAdapter(Context context, ArrayList<News> list, int itemLayoutId, ListView lvNews) {
+        this.context = context;
         if (list == null) {
             list = new ArrayList<News>();
         }
@@ -136,7 +139,7 @@ public class NewsListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
-            convertView = View.inflate(MyApplication.getContext(), itemLayoutId, null);
+            convertView = View.inflate(context, itemLayoutId, null);
             viewHolder = new ViewHolder();
             viewHolder.ivImage = (ImageView) convertView.findViewById(R.id.ivImage);
             viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);

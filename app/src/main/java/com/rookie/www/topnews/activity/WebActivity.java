@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.rookie.www.topnews.MyApplication;
 import com.rookie.www.topnews.R;
 
 public class WebActivity extends AppCompatActivity {
@@ -22,6 +23,7 @@ public class WebActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_web);
+        MyApplication.getInstance().addActivity(this);
         wvWeb = (WebView) findViewById(R.id.wvWeb);
         pbLoadWeb = (ProgressBar) findViewById(R.id.pbLoadWeb);
         WebSettings settings = wvWeb.getSettings();

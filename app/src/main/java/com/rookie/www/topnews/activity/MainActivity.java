@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.rookie.www.topnews.MyApplication;
 import com.rookie.www.topnews.R;
 import com.rookie.www.topnews.adapter.NewsListAdapter;
 import com.rookie.www.topnews.entity.News;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MyApplication.getInstance().addActivity(this);
         lvNews = (ListView) findViewById(R.id.lvMain);
         loadNews(Constant.NEWS_TYPE_TOP);
         lvNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         newses = NewsParse.getNews(respones);
                         if(adapter == null){
-                            adapter = new NewsListAdapter(newses, R.layout.listview_item_news, lvNews);
+                            adapter = new NewsListAdapter(MainActivity.this, newses, R.layout.listview_item_news, lvNews);
                             lvNews.setAdapter(adapter);
                         }else {
                             adapter.notifyDataSetChanged();
@@ -108,5 +110,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         loadNews(newsType);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyApplication.getInstance().exit();
     }
 }
