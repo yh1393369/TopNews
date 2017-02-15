@@ -3,7 +3,10 @@ package com.rookie.www.topnews.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -19,6 +22,7 @@ import com.rookie.www.topnews.utils.Constant;
 import com.rookie.www.topnews.utils.HttpUtils;
 import com.rookie.www.topnews.utils.ProgressDialogUtil;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,6 +51,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        try {
+            ViewConfiguration mconfig = ViewConfiguration.get(this);
+            Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+            if(menuKeyField != null) {
+                menuKeyField.setAccessible(true);
+                menuKeyField.setBoolean(mconfig, false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadNews(String newsType){
@@ -116,8 +130,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        MyApplication.getInstance().exit();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_main_about :
+                Toast.makeText(this, "版本： 1.0", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_main_exit :
+                MyApplication.getInstance().exit();
+                break;
+        }
+        return true;
     }
 }
