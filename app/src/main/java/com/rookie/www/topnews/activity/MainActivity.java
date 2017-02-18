@@ -3,6 +3,8 @@ package com.rookie.www.topnews.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.lidroid.xutils.BitmapUtils;
 import com.rookie.www.topnews.MyApplication;
 import com.rookie.www.topnews.R;
 import com.rookie.www.topnews.adapter.NewsListAdapter;
+import com.rookie.www.topnews.adapter.NewsRecyclerViewAdapter;
 import com.rookie.www.topnews.entity.News;
 import com.rookie.www.topnews.listener.HttpCallbackListener;
 import com.rookie.www.topnews.parse.NewsParse;
@@ -27,20 +30,24 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView lvNews;
+    //private ListView lvNews;
     private ArrayList<News> newses;
-    private NewsListAdapter adapter;
-    private BitmapUtils bitmapUtils;
+    //private NewsListAdapter adapter;
+    //private BitmapUtils bitmapUtils;
+
+    private RecyclerView rvMain;
+    private NewsRecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_rv);
         MyApplication.getInstance().addActivity(this);
-        lvNews = (ListView) findViewById(R.id.lvMain);
-        bitmapUtils = new BitmapUtils(this);
+        //lvNews = (ListView) findViewById(R.id.lvMain);
+        //bitmapUtils = new BitmapUtils(this);
+        rvMain = (RecyclerView) findViewById(R.id.rvMain);
         loadNews(Constant.NEWS_TYPE_TOP);
-        lvNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*lvNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String url = newses.get(position).getUrl();
@@ -50,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
-        });
+        });*/
         try {
             ViewConfiguration mconfig = ViewConfiguration.get(this);
             Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
@@ -73,9 +80,17 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         newses = NewsParse.getNews(respones);
-                        if(adapter == null){
+                        /*if(adapter == null){
                             adapter = new NewsListAdapter(MainActivity.this, newses, R.layout.listview_item_news, lvNews, bitmapUtils);
                             lvNews.setAdapter(adapter);
+                        }else {
+                            adapter.notifyDataSetChanged();
+                        }*/
+                        if(adapter == null){
+                            adapter = new NewsRecyclerViewAdapter(MainActivity.this, newses);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+                            rvMain.setLayoutManager(linearLayoutManager);
+                            rvMain.setAdapter(adapter);
                         }else {
                             adapter.notifyDataSetChanged();
                         }
